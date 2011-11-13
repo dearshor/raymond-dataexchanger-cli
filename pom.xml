@@ -6,7 +6,45 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>Raymond Data Exchanger CLI</name>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.arquillian.maven</groupId>
+				<artifactId>arquillian-maven-plugin</artifactId>
+				<version>${version.arquillian_maven}</version>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.jboss.seam.persistence</groupId>
+			<artifactId>seam-persistence-api</artifactId>
+			<version>${seam.persistence.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.persistence</groupId>
+			<artifactId>seam-persistence-impl</artifactId>
+			<version>${seam.persistence.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.solder</groupId>
+			<artifactId>seam-solder</artifactId>
+			<version>${seam.solder.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.xml</groupId>
+			<artifactId>seam-xml-config</artifactId>
+			<version>${seam.xml.version}</version>
+		</dependency>
+
+		<!-- Normal dependencies used for testing -->
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<version>${version.arquillian}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc14</artifactId>
@@ -83,7 +121,39 @@
 			<version>1.9.0</version>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>arq-jetty</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-jetty-embedded-7</artifactId>
+					<version>${version.arquillian_jetty}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-webapp</artifactId>
+					<version>${version.jetty}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-plus</artifactId>
+					<version>${version.jetty}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
 	<properties>
+		<seam.xml.version>3.0.0.Final</seam.xml.version>
+		<seam.solder.version>3.0.0.Final</seam.solder.version>
+		<seam.persistence.version>3.0.0.Final</seam.persistence.version>
+	
+		<version.arquillian>1.0.0.CR1</version.arquillian>
+		<version.arquillian_maven>1.0.0.Alpha1</version.arquillian_maven>
+		<version.arquillian_jetty>1.0.0.CR1</version.arquillian_jetty>
+		<version.jetty>8.0.0.M3</version.jetty>
 
 		<!-- Build System Properties -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
